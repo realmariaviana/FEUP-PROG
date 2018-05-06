@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <cctype>
 
+#define POS_LETTER(n) n-65
+
 using namespace std;
 
 /*	Opens file
