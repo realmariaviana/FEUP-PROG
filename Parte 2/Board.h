@@ -1,0 +1,28 @@
+#ifndef _BOARD_H
+#define _BOARD_H
+
+#include <iostream>
+#include <iomanip>
+#include <cctype>
+
+#include "ColorText.h"
+
+#define LTR_TO_INT(n) n - 65;
+
+using namespace std;
+
+class Board {
+  public:
+    Board(int colum, int row);
+    ~Board();
+    void drawBoardEmpty(); //Empty board for the first iteration program
+    void drawBoardCurrent(); //Current board displaying words as they are entered
+    void drawBoardStart(); //Board for player program
+    const bool insertWord(const string &wrd,const char &init,const char &end,const char &ori);
+    void deleteWord(const char &init, const char &end);
+  private:
+    char **board;
+    int row, colum;
+};
+
+#endif
