@@ -20,5 +20,14 @@ int main(){
   Board bd(10, 10);
   bd.drawBoardEmpty();
 
+  bd.insertWord("simao", 'A', 'a', 'H');
+  bd.drawBoardCurrent();
+
+  bd.insertWord("sofia", 'A', 'a', 'V');
+  bd.drawBoardCurrent();
+
+  bd.insertWord("afonso", 'A', 'F', 'H');
+  bd.drawBoardCurrent();
+
   return 0;
 }
