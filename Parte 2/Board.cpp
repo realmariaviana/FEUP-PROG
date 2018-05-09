@@ -2,17 +2,17 @@
 
 using namespace std;
 
-Board::Board(int colum, int row){
+Board::Board(int row, int columnn){
   this->row = row;
-  this->colum = colum;
+  this->column = columnn;
 
   board = new  char *[row];
 
   for(int i = 0; i < row; i++){
-    board[i] = new char [colum];
+    board[i] = new char [column];
   }
 
-  for(int i = 0; i < colum; i++){
+  for(int i = 0; i < column; i++){
     for(int j = 0; j < row; j++){
       board[i][j] = '.';
     }
@@ -32,11 +32,11 @@ void Board::drawBoardEmpty(){
 
   setcolor(RED);
   cout << setw(3) << ltrC++ << ' ';
-  for(int i = 0; i < colum-1; i++) cout << ltrC++ << ' ';
+  for(int i = 0; i < column-1; i++) cout << ltrC++ << ' ';
   cout << endl;
   setcolor(NO_COLOR);
 
-  for(int i = 0; i < colum; i++){
+  for(int i = 0; i < column; i++){
     cout << RED << ltrR++;
     for(int j = 0; j < row; j++){
       setcolor(BLACK, WHITE_B);
@@ -53,11 +53,11 @@ void Board::drawBoardCurrent(){
 
   setcolor(RED);
   cout << setw(3) << ltrC++ << ' ';
-  for(int i = 0; i < colum-1; i++) cout << ltrC++ << ' ';
+  for(int i = 0; i < column-1; i++) cout << ltrC++ << ' ';
   cout << endl;
   setcolor(NO_COLOR);
 
-  for(int i = 0; i < colum; i++){
+  for(int i = 0; i < column; i++){
     cout << RED << ltrR++;
     for(int j = 0; j < row; j++){
       setcolor(BLACK, WHITE_B);
@@ -116,7 +116,7 @@ const bool Board::insertWord(const string &wrd, const char &init,const char &end
 
   int maxSpace, ret;
   if(ori == 'V'){
-    maxSpace = colum - c;
+    maxSpace = column - c;
     ret = checkBoardV(wrd, r, c);
   }else{
     maxSpace = row - r;

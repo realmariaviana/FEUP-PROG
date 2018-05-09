@@ -14,7 +14,7 @@ using namespace std;
 
 class Board {
   public:
-    Board(int colum, int row);
+    Board(int row, int column);
     ~Board();
     void drawBoardEmpty(); //Empty board for the first iteration program
     void drawBoardCurrent(); //Current board displaying words as they are entered
@@ -23,7 +23,7 @@ class Board {
     void deleteWord(const char &init, const char &end);
   private:
     char **board;
-    int row, colum;
+    int row, column;
 
     const int checkBoardH(const string &wrd, const int &r, const int &c);
     const int checkBoardV(const string &wrd, const int &r, const int &c);
