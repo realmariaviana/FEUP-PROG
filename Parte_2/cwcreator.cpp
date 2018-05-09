@@ -3,6 +3,7 @@
 #include<sstream>
 
 #include "Board.h"
+#include "MyUtils.h"
 
 using namespace std;
 
@@ -38,6 +39,27 @@ void options_size(int &column, int & row ){
   cin >> row;
 }
 
+void options_words(Board *bd){
+string position, word;
+stringstream ss;
+char line, column, direction;
+
+cout << endl;
+cout << "Position (LCD / CTRL-Z = stop)? ";
+cin.ignore();
+cin.clear();
+getline(cin, position);
+
+ss<<position;
+ss>>line >>column >>direction; //read char by char from input
+
+cout << "Word (- = remove / ? = help)? ";
+cin >> word;
+makeUpper(word);
+bd->insertWord(word, line, column, direction);
+
+}
+
 void userInterface(){
   int input;
   Board *bd;
@@ -46,7 +68,7 @@ void userInterface(){
   cout << endl << endl;
   cout << "CROSSWORDS PUZZLE CREATOR\n===========================================" << endl;
   cout << endl << "OPTIONS: \n1. Create puzzle\n2. Resume puzzle \n0. Exit" << endl << endl;
-  cout << "Option?";
+  cout << "Option? ";
   cin >> input;
 
     switch(input){
@@ -54,7 +76,7 @@ void userInterface(){
       case 1:options_size(column, row);
         bd= new Board(column, row);
         bd->drawBoardEmpty();
-        //options_words();
+        options_words(bd);
         bd->drawBoardCurrent();
               break;
       case 2: //bd.resumeBoard();
