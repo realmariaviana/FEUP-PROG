@@ -59,19 +59,23 @@ void Board::drawBoardCurrent(){
 const bool Board::insertWord(const string &wrd, const char &init,const char &end,const char &ori){
   int r = LTR_TO_INT(init);
   int c = ltr_TO_INT(end);
-
   int maxSpace, ret;
+
   if(ori == 'V'){
-    maxSpace = column - c;
-    ret = checkBoardV(wrd, r, c);
-  }else{
     maxSpace = row - r;
-    ret = checkBoardH(wrd, r, c);
+  }else{
+    maxSpace = column - c;
   }
 
   if(maxSpace < wrd.size()){
     cout << "Word does not fit, not enough space" << endl;
     return false;
+  }
+
+  if(ori == 'V'){
+    ret = checkBoardV(wrd, r, c);
+  }else{
+    ret = checkBoardH(wrd, r, c);
   }
 
   if(ret == -1){
@@ -88,25 +92,66 @@ const bool Board::insertWord(const string &wrd, const char &init,const char &end
   return true;
 }
 
-void Board::deleteWord(const char &init, const char &end, const char &ori){
+const string Board::deleteWord(const char &init, const char &end, const char &ori){
   int r = LTR_TO_INT(init);
   int c = ltr_TO_INT(end);
-  
+  string ret;
+
   if(ori == 'V'){
-    deleteWordV(r, c);
+    ret = deleteWordV(r, c);
   }else{
-    deleteWordH(r, c);
+    ret = deleteWordH(r, c);
   }
+
+  return ret;
 }
 
+/*const string Board::getWord(const char &init, const char &end, const char &ori){
+  int r = LTR_TO_INT(init);
+  int c = ltr_TO_INT(end);
+  string ret;
+
+  if(ori == 'V'){
+    ret = getWordV(r, c);
+  }else{
+    ret = getWordH(r, c);
+  }
+
+  return ret;
+}*/
+
 //PRIVATE METHODS
+/*const string Board::getWordH(const int &r, const int &c){
+  int aux = c:
+  string wrd;
+
+  while(aux != column){
+    if(board[r][aux] == '.' || board[r][aux] == '#') return wrd;
+    wrd.push_back(board[r][aux]);
+  }
+
+  return wrd;
+}*/
+
+/*const string Board::getWordV(const int &r, const int &c){
+  int aux = r;
+  string wrd;
+
+  while(aux != row){
+    if(board[aux][c] == '.' || board[aux][c] == '#') return wrd;
+    wrd.push_back(board[aux][c]);
+  }
+
+  return wrd;
+}*/
+
 const bool Board::checkSurrondingsH(const int &r, const int &c){
   if(r == 0){
     return board[r+1][c] != '.' && board[r+1][c] != '#';
   }else if(r == row -1){
     return board[r-1][c] != '.' && board[r+1][c] != '#';
   }else{
-    return board[r-1][c] != '.' && board[r-1][c] != '#' && board[r+1][c] != '.' && board[r+1][c] != '#';
+    return (board[r-1][c] != '.' && board[r-1][c] != '#') || (board[r+1][c] != '.' && board[r+1][c] != '#');
   }
 }
 
@@ -116,26 +161,36 @@ const bool Board::checkSurrondingsV(const int &r, const int &c){
   } else if (c == column -1) {
     return board[r][c-1] != '.' && board[r][c-1] != '#';
   } else {
-    return board[r][c-1] != '.' && board[r][c-1] != '#' && board[r][c+1] != '.' && board[r][c+1] != '#';
+    return (board[r][c-1] != '.' && board[r][c-1] != '#') || (board[r][c+1] != '.' && board[r][c+1] != '#');
   }
 }
 
-void Board::deleteWordH(const int &r, const int &c){
+const string Board::deleteWordH(const int &r, const int &c){
   int aux = c;
+  string wrd;
+
   while(aux != column){
-    if(board[r][aux] == '.' || board[r][aux] == '#') return;
+    if(board[r][aux] == '.' || board[r][aux] == '#') return wrd;
+    wrd.push_back(board[r][aux]);
     if(checkSurrondingsH(r, aux)){ aux++; continue; }
     board[r][aux++] = '.';
   }
+
+  return wrd;
 }
 
-void Board::deleteWordV(const int &r, const int &c){
+const string Board::deleteWordV(const int &r, const int &c){
   int aux = r;
+  string wrd;
+
   while(aux != row){
-    if(board[aux][c] == '.' || board[aux][c] == '#') return;
+    if(board[aux][c] == '.' || board[aux][c] == '#') return wrd;
+    wrd.push_back(board[aux][c]);
     if(checkSurrondingsV(aux, c)){ aux++; continue; }
     board[aux++][c] = '.';
   }
+
+  return wrd;
 }
 
 void Board::insertWordH(const string &wrd, const int &r, const int &c){

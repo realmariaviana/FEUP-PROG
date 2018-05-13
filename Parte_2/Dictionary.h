@@ -13,12 +13,11 @@ class Dictionary{
   public:
     Dictionary(const string &fileName);
     bool isValid(string &str) const;
-    vector<string> searchWords(const string &str);
-    //Methods to give hints
+    vector<string> searchWords(const string &str);    //Methods to give hints
 private:
-    vector<string> keys;
     multimap<string, string> words;
-    int ltrFreq[26];
+    vector<string> keys;                              // Necessary to reutilize wildacrdMatch
+    int ltrFreq[26];                                  // From first program
 };
 
 #endif

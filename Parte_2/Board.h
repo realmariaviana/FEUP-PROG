@@ -16,11 +16,12 @@ using namespace std;
 class Board {
   public:
     Board(int row, int column);
-    void drawBoardEmpty(); //Empty board for the first iteration program
-    void drawBoardCurrent(); //Current board displaying words as they are entered
-    //void drawBoardStart(); //Board for player program
+    void drawBoardEmpty();        //Empty board for the first iteration program
+    void drawBoardCurrent();      //Current board displaying words as they are entered
+    void drawBoardStart();        //Board for player program
     const bool insertWord(const string &wrd,const char &init,const char &end,const char &ori);
-    void deleteWord(const char &init, const char &end, const char &ori);
+    const string deleteWord(const char &init, const char &end, const char &ori);
+    //const string getWord(const char &init, const char &end, const char &ori);
   private:
     vector< vector<char> > board;
     int row, column;
@@ -29,10 +30,12 @@ class Board {
     const int checkBoardH(const string &wrd, const int &r, const int &c);
     void insertWordV(const string &wrd, const int &r, const int &c);
     void insertWordH(const string &wrd, const int &r, const int &c);
-    void deleteWordV(const int &r, const int &c);
-    void deleteWordH(const int &r, const int &c);
+    const string deleteWordV(const int &r, const int &c);
+    const string deleteWordH(const int &r, const int &c);
     const bool checkSurrondingsH(const int &r, const int &c);
     const bool checkSurrondingsV(const int &r, const int &c);
+    //const string getWordV(const int &r, const int &c);
+    //const string getWordH(const int &r, const int &c);
 };
 
 #endif

@@ -2,39 +2,57 @@
 #include <string>
 #include<sstream>
 
-#include "Board.h"
-#include "MyUtils.h"
-#include "Dictionary.h"
+#include "Puzzle.h"
+
+//#include "Board.h"
+//#include "MyUtils.h"
+//#include "Dictionary.h"
 
 using namespace std;
 
-void userInterface();
+//void userInterface();
 
 int main(){
-  /*Dictionary dt("synonyms.txt");
+  cout << "CROSSWORDS PUZZLE CREATOR" << endl;
+  cout << "==========================" << endl;
+  cout << "Instructions: " << endl;
+  cout << "Position ( LCD / CTRL-D = stop)" << endl;
+  cout << "LCD stands for Line Column and Direction" << endl;
+  cout << "Line must be in uppercase, column lowecase and Direction in uppercase" << endl;
+  cout << endl;
+  cout << "-----------------------" << endl;
+  cout << "Options: " << endl;
+  cout << "1) Create Puzzle" << endl;
+  cout << "2) Resume Puzzle" << endl;
+  cout << "0)  Exit" << endl;
 
+  int options = -1;
+  cin >> options;
 
-  pair<map<string, string> ::iterator, map<string, string> ::iterator> ret;
-  ret = dt.words.equal_range("ABACK");
+  while(!cin.fail()){
+    cin >> options;
 
-  for(multimap<string, string>::iterator it = ret.first; it != ret.second; ++it){
-    cout << it->second << " ";
+    switch (options) {
+      case 0:
+        cout << "Closing the program..." << endl;
+        exit(0);
+      case 1:
+
+        break;
+      case 2:
+
+        break;
+      default:
+        
+    }
   }
-  cout << endl;*/
-  userInterface();
 
-  //bd.insertWord("simao", 'A', 'a', 'H');
-  //bd.drawBoardCurrent();
-
-  //bd.insertWord("sofia", 'A', 'a', 'V');
-  //bd.drawBoardCurrent();
-
-  //bd.insertWord("afonso", 'A', 'F', 'H');
-  //bd.drawBoardCurrent();
+  Puzzle pz("sinonimos.txt", 10, 10);
+  pz.userIn();
 
   return 0;
 }
-void options_size(int &column, int & row ){
+/*void options_size(int &column, int & row ){
   cout << "Board size (lines columnns)? ";
   cin >> column;
   cin >> row;
@@ -89,4 +107,4 @@ void userInterface(){
       case 0: //bd.exit();
               break;
     }
-}
+}*/
