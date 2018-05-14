@@ -1,25 +1,119 @@
 #include <iostream>
 #include <string>
-#include<sstream>
+#include <limits>
 
 #include "Puzzle.h"
-
-//#include "Board.h"
-//#include "MyUtils.h"
-//#include "Dictionary.h"
+#include "ColorText.h"
 
 using namespace std;
 
-//void userInterface();
+void printInit();
+Puzzle* printMenu();
+Puzzle* invalidMenuOption();
+Puzzle* createPuzzle();
+Puzzle* resumePuzzle();
+const bool isComplete();
 
 int main(){
-  cout << "CROSSWORDS PUZZLE CREATOR" << endl;
-  cout << "==========================" << endl;
-  cout << "Instructions: " << endl;
-  cout << "Position ( LCD / CTRL-D = stop)" << endl;
-  cout << "LCD stands for Line Column and Direction" << endl;
-  cout << "Line must be in uppercase, column lowecase and Direction in uppercase" << endl;
-  cout << endl;
+  printInit();
+
+  Puzzle *pz;
+  string ret;
+
+  pz = printMenu();
+
+  pz -> userIn();
+
+  if(isComplete()){
+    pz -> cleanBoard();
+    ret = pz -> saveToFile();
+  }else{
+    ret = pz -> saveToFile();
+  }
+
+  cout << "Crossword puzzle saved to file " << ret << endl;
+
+  delete(pz);
+
+  return 0;
+}
+
+const bool invalidIsCompleteOption(){
+  if(cin.fail()){
+    cout << endl << "Invalid option detected. Trt agian" << endl;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    return isComplete();
+  }else{
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');;
+
+    return isComplete();
+  }
+}
+
+const bool isComplete(){
+  cout << "Is the puzzle complete? [Y / N] ? ";
+  char options;
+
+  cin >> options;
+
+  switch (options) {
+    case 'Y':
+    case 'y':
+      return true;
+    case 'N':
+    case 'n':
+      return false;
+    default:
+      return invalidIsCompleteOption();
+  }
+}
+
+Puzzle* resumePuzzle() {
+  cout << "Crossword puzzle file ? " << endl;
+  string fileName;
+  cin >> fileName;
+
+  Puzzle *pz;
+
+  pz = new Puzzle(fileName);
+
+  return pz;
+}
+
+Puzzle* createPuzzle(){
+  string fileName;
+  int row, column;
+
+  cout << "Dictionary file name ? ";
+  cin >> fileName;
+  cout << "Board size (lines columns) ? ";
+  cin >> row >> column;
+
+  Puzzle *pz;
+  pz = new Puzzle(fileName, row, column);
+
+  return pz;
+}
+
+Puzzle* invalidMenuOption(){
+  if(cin.fail()){
+    cout << endl << "Invalid option detected. Trt agian" << endl;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    return printMenu();
+  }else{
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');;
+
+    return printMenu();
+  }
+}
+
+Puzzle* printMenu(){
   cout << "-----------------------" << endl;
   cout << "Options: " << endl;
   cout << "1) Create Puzzle" << endl;
@@ -27,7 +121,6 @@ int main(){
   cout << "0)  Exit" << endl;
 
   int options = -1;
-  cin >> options;
 
   while(!cin.fail()){
     cin >> options;
@@ -37,74 +130,25 @@ int main(){
         cout << "Closing the program..." << endl;
         exit(0);
       case 1:
-
+        return createPuzzle();
         break;
       case 2:
-
+        return resumePuzzle();
         break;
       default:
-        
+        return invalidMenuOption();
     }
   }
-
-  Puzzle pz("sinonimos.txt", 10, 10);
-  pz.userIn();
-
   return 0;
 }
-/*void options_size(int &column, int & row ){
-  cout << "Board size (lines columnns)? ";
-  cin >> column;
-  cin >> row;
+
+void printInit(){
+  cout << "CROSSWORDS PUZZLE CREATOR" << endl;
+  cout << "==========================" << endl;
+  cout << "Instructions: " << endl;
+  cout << "Position ( LCD / CTRL-D = stop)" << endl;
+  cout << "LCD stands for Line Column and Direction" << endl;
+  cout << "Line must be in uppercase, column lowecase and Direction in uppercase" << endl;
+  cout << "? does not work yet" << endl;
+  cout << endl;
 }
-
-bool options_words(Board *bd, Dictionary *d){
-string position, word;
-stringstream ss;
-char line, column, direction;
-
-cout << endl;
-cout << "Position (LCD / CTRL-Z = stop)? ";
-cin.ignore();
-cin.clear();
-getline(cin, position);
-
-ss<<position;
-ss>>line >>column >>direction; //read char by char from input
-
-cout << "Word (- = remove / ? = help)? ";
-cin >> word;
-if(!d->isValid(word)){
-cout <<"ERROR: The word does not belong to the dictionary" << endl;
-return false;
-}
-bd->insertWord(word, line, column, direction);
-return true;
-}
-
-void userInterface(){
-  int input;
-  Board *bd;
-  Dictionary *d;
-  int column, row;
-  d = new Dictionary("sinonimos.txt");
-  cout << endl << endl;
-  cout << "CROSSWORDS PUZZLE CREATOR\n===========================================" << endl;
-  cout << endl << "OPTIONS: \n1. Create puzzle\n2. Resume puzzle \n0. Exit" << endl << endl;
-  cout << "Option? ";
-  cin >> input;
-
-    switch(input){
-
-      case 1: options_size(column, row);
-              bd= new Board(column, row);
-              bd->drawBoardEmpty();
-              if(options_words(bd, d))
-              bd->drawBoardCurrent();
-              break;
-      case 2: //bd.resumeBoard();
-              break;
-      case 0: //bd.exit();
-              break;
-    }
-}*/

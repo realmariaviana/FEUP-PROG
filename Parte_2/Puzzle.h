@@ -8,6 +8,7 @@
 #include <limits>
 #include <map>
 
+#include "MyUtils.h"
 #include "Dictionary.h"
 #include "Board.h"
 
@@ -16,15 +17,19 @@ using namespace std;
 class Puzzle{
   public:
     Puzzle(const string &f_dictionary, const int &row, const int &column);
-    //Puzzle(const string &f_in);
+    Puzzle(const string &f_in);
     ~Puzzle();
     void userIn();
-    const bool saveToFile(string &filename);
+    void cleanBoard();
+    const string saveToFile();
   private:
     Dictionary *dc;
     Board *bd;
 
-    string fileName;
+    string fileDictionary;
+    string filePuzzle;
+    bool flag;
+
     map<string, string> instructions;
 
     const bool userInPos(string &inPos);

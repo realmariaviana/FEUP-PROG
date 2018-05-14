@@ -12,6 +12,19 @@ Board::Board(int row, int columnn){
     board[i].reserve(column);
     for(int j = 0; j < column; j++) board[i][j] = '.';
   }
+
+}
+
+Board::Board(const string &line){
+  this -> column = line.size();
+  this -> row = 1;
+
+  board.reserve(1);
+  board[0].reserve(column);
+
+  for(size_t i = 0; i < line.size(); i++){
+    board[0][i] = line[i];
+  }
 }
 
 void Board::drawBoardEmpty(){
@@ -104,6 +117,38 @@ const string Board::deleteWord(const char &init, const char &end, const char &or
   }
 
   return ret;
+}
+
+void Board::finishBoard(){
+  for(int i = 0; i < row; i++){
+    for(int j = 0; j < column; j++){
+      if(board[i][j] == '.') board[i][j] = '#';
+    }
+  }
+
+}
+
+void Board::addLine(const string &line){
+  board.reserve(2);
+  board[row].resize(column);
+  cout << "addline" << endl;
+  for(size_t i = 0; i < line.size(); i++){
+    cout << row << endl;
+    board[row][i] = line[i];
+    cout << i << endl;
+  }
+
+  row++;
+}
+
+void Board::writeToFile(ofstream &F){
+  for(int i = 0; i < row; i++){
+    for(int j = 0; j < column; j++){
+      F << setw(2) << board[i][j];
+    }
+    F << endl;
+  }
+  F << endl;
 }
 
 /*const string Board::getWord(const char &init, const char &end, const char &ori){

@@ -3,15 +3,50 @@
 using namespace std;
 
 Puzzle::Puzzle(const string &f_dictionary, const int &row, const int &column){
-  this -> fileName = f_dictionary;
+  this -> fileDictionary = f_dictionary;
+  this -> filePuzzle = "b001.txt";
+  this -> flag = false;
 
   bd = new Board(row, column);
   dc = new Dictionary(f_dictionary);
 }
 
-/*Puzzle::Puzzle(const string &f_in){
+Puzzle::Puzzle(const string &f_in){
+  ifstream F;
+  string line;
 
-}*/
+  openFile(f_in, F);
+
+  getline(F, line);
+  trimString(line);
+  dc = new Dictionary(line);
+
+  getline(F, line);
+
+  getline(F, line);
+  trimString(line);
+  bd = new Board(line);
+  cout << "board created" << endl;
+  while(line.compare("\n") != 0){
+    cout << "while" << endl;
+    getline(F, line);
+    trimString(line);
+    cout << line << endl;
+    bd -> addLine(line);
+    cout << "boop" << endl;
+  }
+
+  getline(F, line);
+
+  string key, val;
+
+  while(!F.eof()){
+    F >> key >> val;
+    instructions.insert(pair<string, string>(key, val));
+  }
+
+  bd -> drawBoardCurrent();
+}
 
 Puzzle::~Puzzle(){
   delete(dc);
@@ -139,7 +174,7 @@ const int Puzzle::userInWrd(string &inWrd){
 void Puzzle::userIn(){
   int ret;
   int flag;
-
+  
   bd -> drawBoardEmpty();
 
   while(1){
@@ -147,7 +182,7 @@ void Puzzle::userIn(){
     stringstream ss;
     char init, end, ori;
 
-    if(userInPos(inPos)) break;
+    if(userInPos(inPos)) return;
 
     ss << inPos;
     ss >> init >> end >> ori;
@@ -165,13 +200,11 @@ void Puzzle::userIn(){
           break;
         }else{
           flag = -1;
-          /*string wldStr = bd -> getWord(init, end , ori);
-          vector<string> opt = dc -> searchWords(wldStr);
-
-          for(int i = 0; i < opt.size(); i++) cout << opt[i] << "; ";
-          cout << endl;
-          flag2 = false;
-          break;*/
+          //? dar pistas para aquela posicao
+          //utilizar dc -> searchWords(wildStr)
+          //wildStr string com ? nos locais onde nao temos letras
+          //ha funcoes no board que retornam a linha/coluna para as coordenadas indicadas
+          //mas e preciso altera las unico criterio de paragem e #
         }
     }
 
@@ -190,4 +223,54 @@ void Puzzle::userIn(){
     }
     bd -> drawBoardCurrent();
   }
+}
+
+void Puzzle::cleanBoard(){
+  bd -> finishBoard();
+}
+
+void newFileName(string &fileName){
+  stringstream ss;
+  char a;
+  int n;
+
+  ss << fileName;
+  ss >> a >> n >> a >> a >> a >> a;
+  n++;
+
+  if(n<10){
+    stringstream sa;
+    sa << "b00" << n << ".txt";
+    fileName = sa.str();
+  }else if(n >= 10 && n < 100){
+    stringstream sa;
+    sa << "b0" << n << ".txt";
+    fileName = sa.str();
+  }else{
+    stringstream sa;
+    sa << "b" << n << ".txt";
+    fileName = sa.str();
+  }
+}
+
+const string Puzzle::saveToFile(){
+  if(flag){
+    newFileName(filePuzzle);
+  }
+
+  ofstream F;
+
+  openFile(filePuzzle, F);
+
+  F << fileDictionary << endl << endl;
+
+  bd -> writeToFile(F);
+
+  for(auto it : instructions){
+    F << it.second << ' ' << it.first << endl;
+  }
+
+  F.close();
+
+  return filePuzzle;
 }

@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <cctype>
 #include <vector>
+#include <fstream>
 
 #include "ColorText.h"
 
@@ -16,11 +17,14 @@ using namespace std;
 class Board {
   public:
     Board(int row, int column);
+    Board(const string &line);
     void drawBoardEmpty();        //Empty board for the first iteration program
     void drawBoardCurrent();      //Current board displaying words as they are entered
-    void drawBoardStart();        //Board for player program
     const bool insertWord(const string &wrd,const char &init,const char &end,const char &ori);
     const string deleteWord(const char &init, const char &end, const char &ori);
+    void finishBoard();
+    void addLine(const string &line);
+    void writeToFile(ofstream &F);
     //const string getWord(const char &init, const char &end, const char &ori);
   private:
     vector< vector<char> > board;
