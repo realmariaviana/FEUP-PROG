@@ -45,7 +45,7 @@ Puzzle::Puzzle(const string &f_in){
   string key, val;
 
   while(!F.eof()){
-    F >> key >> val;
+    F >> val >> key;
     instructions.insert(pair<string, string>(key, val));
   }
   bd -> drawBoardCurrent();
@@ -177,7 +177,6 @@ const int Puzzle::userInWrd(string &inWrd){
 
 void Puzzle::userIn(){
   int ret;
-  int flag;
 
   if(newBoard) bd -> drawBoardEmpty();
 
@@ -185,6 +184,7 @@ void Puzzle::userIn(){
     string inPos, inWrd, delWrd;
     stringstream ss;
     char init, end, ori;
+    int flag = -1;
 
     if(userInPos(inPos)) return;
 
@@ -215,11 +215,13 @@ void Puzzle::userIn(){
     switch (flag) {
       case 0:
         instructions.insert(pair<string, string>(inWrd, inPos));
+        flag = -1;
         break;
       case 1:{
         map<string, string>::iterator it;
         it = instructions.find(delWrd);
         instructions.erase(it);
+        flag = -1;
         break;
       }
       default:

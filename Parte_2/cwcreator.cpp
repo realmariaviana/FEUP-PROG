@@ -18,7 +18,7 @@ int main(){
   printInit();
 
   Puzzle *pz;
-  string ret;
+  string fileName;
 
   pz = printMenu();
 
@@ -26,12 +26,12 @@ int main(){
 
   if(isComplete()){
     pz -> cleanBoard();
-    ret = pz -> saveToFile();
+    fileName = pz -> saveToFile();
   }else{
-    ret = pz -> saveToFile();
+    fileName = pz -> saveToFile();
   }
 
-  cout << "Crossword puzzle saved to file " << ret << endl;
+  cout << "Crossword puzzle saved to file " << fileName << endl;
 
   delete(pz);
 
@@ -120,7 +120,7 @@ Puzzle* printMenu(){
   cout << "Options: " << endl;
   cout << "1. Create Puzzle" << endl;
   cout << "2. Resume Puzzle" << endl;
-  cout << "0.  Exit" << endl;
+  cout << "0. Exit" << endl;
 
   int options = -1;
 
