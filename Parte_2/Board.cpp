@@ -17,14 +17,19 @@ Board::Board(int row, int columnn){
 
 Board::Board(const string &line){
   this -> column = line.size();
-  this -> row = 1;
+  this -> row = 0;
 
-  board.reserve(1);
-  board[0].reserve(column);
+  vector<char> nC;
+  int col = 0;
 
   for(size_t i = 0; i < line.size(); i++){
-    board[0][i] = line[i];
+    if(line[i] != ' '){
+      nC.push_back(line[i]);
+      col++;
+    }
   }
+  this -> column = col;
+  board.push_back(nC);
 }
 
 void Board::drawBoardEmpty(){
@@ -51,7 +56,7 @@ void Board::drawBoardEmpty(){
 void Board::drawBoardCurrent(){
   char ltrC = 'a';
   char ltrR = 'A';
-
+  
   setcolor(RED);
   cout << ' ';
   for(int i = 0; i < column; i++, ltrC++) cout << setw(2) << ltrC;
@@ -129,22 +134,21 @@ void Board::finishBoard(){
 }
 
 void Board::addLine(const string &line){
-  board.reserve(2);
-  board[row].resize(column);
-  cout << "addline" << endl;
-  for(size_t i = 0; i < line.size(); i++){
-    cout << row << endl;
-    board[row][i] = line[i];
-    cout << i << endl;
-  }
+  vector <char> nC;
 
+  for(size_t i = 0; i < line.size(); i++){
+    if(line[i] != ' '){
+       nC.push_back(line[i]);
+    }
+  }
   row++;
+  board.push_back(nC);
 }
 
 void Board::writeToFile(ofstream &F){
   for(int i = 0; i < row; i++){
     for(int j = 0; j < column; j++){
-      F << setw(2) << board[i][j];
+      F << board[i][j] << ' ';
     }
     F << endl;
   }

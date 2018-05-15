@@ -117,16 +117,15 @@ Puzzle* invalidMenuOption(){
 }
 
 Puzzle* printMenu(){
-
   cout << "Options: " << endl;
   cout << "1. Create Puzzle" << endl;
   cout << "2. Resume Puzzle" << endl;
-  cout << "0. Exit" << endl;
+  cout << "0.  Exit" << endl;
 
   int options = -1;
 
   while(!cin.fail()){
-    cout << "Option? ";
+    cout << "Option ? ";
     cin >> options;
 
     switch (options) {

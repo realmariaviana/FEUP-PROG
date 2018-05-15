@@ -28,7 +28,8 @@ class Puzzle{
 
     string fileDictionary;
     string filePuzzle;
-    bool flag;
+    bool newBoard;
+    bool fileName;
 
     map<string, string> instructions;
 

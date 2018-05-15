@@ -5,13 +5,18 @@ using namespace std;
 Puzzle::Puzzle(const string &f_dictionary, const int &row, const int &column){
   this -> fileDictionary = f_dictionary;
   this -> filePuzzle = "b001.txt";
-  this -> flag = false;
+  this -> newBoard = true;
+  this -> fileName = false;
 
   bd = new Board(row, column);
   dc = new Dictionary(f_dictionary);
 }
 
 Puzzle::Puzzle(const string &f_in){
+  this -> filePuzzle = f_in;
+  this -> newBoard = false;
+  this -> fileName = true;
+
   ifstream F;
   string line;
 
@@ -20,20 +25,19 @@ Puzzle::Puzzle(const string &f_in){
   getline(F, line);
   trimString(line);
   dc = new Dictionary(line);
+  this -> fileDictionary = line;
 
   getline(F, line);
 
   getline(F, line);
   trimString(line);
+
   bd = new Board(line);
-  cout << "board created" << endl;
-  while(line.compare("\n") != 0){
-    cout << "while" << endl;
+
+  while(!line.empty()){
     getline(F, line);
     trimString(line);
-    cout << line << endl;
     bd -> addLine(line);
-    cout << "boop" << endl;
   }
 
   getline(F, line);
@@ -44,7 +48,6 @@ Puzzle::Puzzle(const string &f_in){
     F >> key >> val;
     instructions.insert(pair<string, string>(key, val));
   }
-
   bd -> drawBoardCurrent();
 }
 
@@ -176,7 +179,7 @@ void Puzzle::userIn(){
   int ret;
   int flag;
 
-  bd -> drawBoardEmpty();
+  if(newBoard) bd -> drawBoardEmpty();
 
   while(1){
     string inPos, inWrd, delWrd;
@@ -255,7 +258,7 @@ void newFileName(string &fileName){
 }
 
 const string Puzzle::saveToFile(){
-  if(flag){
+  if(fileName){
     newFileName(filePuzzle);
   }
 
