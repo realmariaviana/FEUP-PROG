@@ -72,7 +72,7 @@ const int checkInPos(string a){
 const bool Puzzle::userInPos(string &inPos){
   bool flag = true;
 
-  cout << "Position ( LCD / CTRL-D = stop) ? ";
+  cout << endl << "Position ( LCD / CTRL-D = stop) ? ";
   cin >> inPos;
 
   if(cin.eof()){
@@ -135,6 +135,7 @@ const int Puzzle::userInWrd(string &inWrd){
   cin.clear();
   cin.ignore(numeric_limits<streamsize>::max(), '\n');
   cin >> inWrd;
+  cout << endl;
 
   while(1){
     if(cin.eof()){
@@ -174,7 +175,7 @@ const int Puzzle::userInWrd(string &inWrd){
 void Puzzle::userIn(){
   int ret;
   int flag;
-  
+
   bd -> drawBoardEmpty();
 
   while(1){

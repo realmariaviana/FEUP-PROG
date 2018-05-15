@@ -72,6 +72,7 @@ const bool isComplete(){
 }
 
 Puzzle* resumePuzzle() {
+  cout << endl << endl;
   cout << "Crossword puzzle file ? " << endl;
   string fileName;
   cin >> fileName;
@@ -87,10 +88,12 @@ Puzzle* createPuzzle(){
   string fileName;
   int row, column;
 
+  cout << endl;
   cout << "Dictionary file name ? ";
   cin >> fileName;
   cout << "Board size (lines columns) ? ";
   cin >> row >> column;
+  cout << endl;
 
   Puzzle *pz;
   pz = new Puzzle(fileName, row, column);
@@ -114,15 +117,16 @@ Puzzle* invalidMenuOption(){
 }
 
 Puzzle* printMenu(){
-  cout << "-----------------------" << endl;
+
   cout << "Options: " << endl;
-  cout << "1) Create Puzzle" << endl;
-  cout << "2) Resume Puzzle" << endl;
-  cout << "0)  Exit" << endl;
+  cout << "1. Create Puzzle" << endl;
+  cout << "2. Resume Puzzle" << endl;
+  cout << "0. Exit" << endl;
 
   int options = -1;
 
   while(!cin.fail()){
+    cout << "Option? ";
     cin >> options;
 
     switch (options) {
@@ -143,12 +147,13 @@ Puzzle* printMenu(){
 }
 
 void printInit(){
+  cout << endl << endl;
   cout << "CROSSWORDS PUZZLE CREATOR" << endl;
-  cout << "==========================" << endl;
+  cout << "==========================" << endl << endl;
   cout << "Instructions: " << endl;
-  cout << "Position ( LCD / CTRL-D = stop)" << endl;
-  cout << "LCD stands for Line Column and Direction" << endl;
-  cout << "Line must be in uppercase, column lowecase and Direction in uppercase" << endl;
+  cout << "- Position ( LCD / CTRL-D = stop)" << endl;
+  cout << "- LCD stands for Line Column and Direction" << endl;
+  cout << "- Line must be in uppercase, column lowecase and Direction in uppercase" << endl;
   cout << "? does not work yet" << endl;
   cout << endl;
 }
