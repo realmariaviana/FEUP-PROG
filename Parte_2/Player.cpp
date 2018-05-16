@@ -29,8 +29,6 @@ Player::Player(const string &f_in, const string &name){
     bd -> addLine(line, true);
   }
 
-  getline(F, line);
-
   string key, val;
 
   while(!F.eof()){

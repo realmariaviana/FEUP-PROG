@@ -39,12 +39,11 @@ Puzzle::Puzzle(const string &f_in){
     bd -> addLine(line);
   }
 
-  getline(F, line);
-
   string key, val;
-
+  
   while(!F.eof()){
     F >> val >> key;
+    cout << val << key << endl;
     instructions.insert(pair<string, string>(key, val));
   }
   bd -> drawBoardCurrent();

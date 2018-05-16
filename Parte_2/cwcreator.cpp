@@ -19,10 +19,11 @@ int main(){
 
   Puzzle *pz;
   string fileName;
+  int aux = 0;
 
   pz = printMenu();
 
-  pz -> userIn();
+  pz -> userIn(aux);
 
   if(isComplete()){
     pz -> cleanBoard();
