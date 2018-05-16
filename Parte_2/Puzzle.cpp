@@ -31,7 +31,6 @@ Puzzle::Puzzle(const string &f_in){
 
   getline(F, line);
   trimString(line);
-
   bd = new Board(line);
 
   while(!line.empty()){
@@ -49,6 +48,15 @@ Puzzle::Puzzle(const string &f_in){
     instructions.insert(pair<string, string>(key, val));
   }
   bd -> drawBoardCurrent();
+}
+
+Puzzle::Puzzle(Dictionary &dc, Board &bd, map<string, string> &hintMap){
+  this -> dc = &dc;
+  this -> bd = &bd;
+  this -> hintMap = &hintMap;
+  this -> newBoard = false;
+
+  bd.drawBoardCurrent();
 }
 
 Puzzle::~Puzzle(){
@@ -175,7 +183,7 @@ const int Puzzle::userInWrd(string &inWrd){
   return ret;
 }
 
-void Puzzle::userIn(){
+void Puzzle::userIn(int &n){
   int ret;
 
   if(newBoard) bd -> drawBoardEmpty();
@@ -204,6 +212,7 @@ void Puzzle::userIn(){
           break;
         }else{
           flag = -1;
+          n++;
           //? dar pistas para aquela posicao
           //utilizar dc -> searchWords(wildStr)
           //wildStr string com ? nos locais onde nao temos letras

@@ -18,12 +18,14 @@ class Board {
   public:
     Board(int row, int column);
     Board(const string &line);
+    Board(const string &line, const bool &flag);
     void drawBoardEmpty();        //Empty board for the first iteration program
     void drawBoardCurrent();      //Current board displaying words as they are entered
     const bool insertWord(const string &wrd,const char &init,const char &end,const char &ori);
     const string deleteWord(const char &init, const char &end, const char &ori);
     void finishBoard();
     void addLine(const string &line);
+    void addLine(const string &line, const bool &flag);
     void writeToFile(ofstream &F);
     //const string getWord(const char &init, const char &end, const char &ori);
   private:

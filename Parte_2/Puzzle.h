@@ -18,8 +18,9 @@ class Puzzle{
   public:
     Puzzle(const string &f_dictionary, const int &row, const int &column);
     Puzzle(const string &f_in);
+    Puzzle(Dictionary &dc, Board &bd, map<string, string> &hintMap);
     ~Puzzle();
-    void userIn();
+    void userIn(int &n);
     void cleanBoard();
     const string saveToFile();
   private:
@@ -32,6 +33,7 @@ class Puzzle{
     bool fileName;
 
     map<string, string> instructions;
+    map<string, string> *hintMap;
 
     const bool userInPos(string &inPos);
     const int userInWrd(string &inWrd);

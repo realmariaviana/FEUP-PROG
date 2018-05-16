@@ -32,6 +32,27 @@ Board::Board(const string &line){
   board.push_back(nC);
 }
 
+Board::Board(const string &line, const bool &flag){
+  this -> column = line.size();
+  this -> row = 0;
+
+  vector <char> nC;
+  int col = 0;
+
+  for (size_t i = 0; i < line.size(); i++) {
+    if(line[i] != ' '){
+      col++;
+      if(line[i] != '#'){
+        nC.push_back('.');
+      }else{
+        nC.push_back(line[i]);
+      }
+    }
+  }
+  this -> column = col;
+  board.push_back(nC);
+}
+
 void Board::drawBoardEmpty(){
   char ltrC = 'a';
   char ltrR = 'A';
@@ -56,7 +77,7 @@ void Board::drawBoardEmpty(){
 void Board::drawBoardCurrent(){
   char ltrC = 'a';
   char ltrR = 'A';
-  
+
   setcolor(RED);
   cout << ' ';
   for(int i = 0; i < column; i++, ltrC++) cout << setw(2) << ltrC;
@@ -139,6 +160,22 @@ void Board::addLine(const string &line){
   for(size_t i = 0; i < line.size(); i++){
     if(line[i] != ' '){
        nC.push_back(line[i]);
+    }
+  }
+  row++;
+  board.push_back(nC);
+}
+
+void Board::addLine(const string &line, const bool &flag){
+  vector<char> nC;
+
+  for (size_t i = 0; i < line.size(); i++) {
+    if(line[i] != ' '){
+      if(line[i] != '#'){
+        nC.push_back('.');
+      }else{
+        nC.push_back(line[i]);
+      }
     }
   }
   row++;
