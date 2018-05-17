@@ -5,6 +5,7 @@
 #include <fstream>
 #include <ctime>
 #include <map>
+#include <sstream>
 
 #include "Board.h"
 #include "Dictionary.h"
@@ -17,10 +18,14 @@ class Player{
     ~Player();
 
   private:
+    Dictionary *dc;
+    Board *bd;
     Puzzle *pz;
 
     string name;
     map<string, string> sol;
+    vector<string> hintH;
+    vector<string> hintV;
 };
 
 #endif
