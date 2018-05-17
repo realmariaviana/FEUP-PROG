@@ -29,12 +29,11 @@ Player::Player(const string &f_in, const string &name){
     bd -> addLine(line, true);
   }
 
-  string key, val;
-  vector<string> coord;
-
   while(!F.eof()){
+    string key, val;
     F >> val >> key;
-    coord.push_back(val);
+    if(val.empty() && key.empty()) break;
+    cout << val << '.' << ' ' << key << '.' << endl;
     sol.insert(pair<string, string>(key, val));
   }
 
@@ -42,6 +41,8 @@ Player::Player(const string &f_in, const string &name){
   int i = 0;
 
   for(auto it : sol){
+    string key, val;
+
     key = it.second;
     val = it.first;
     char r, c, ori;
@@ -50,11 +51,10 @@ Player::Player(const string &f_in, const string &name){
 
     pz -> addHintMap(key, val);
 
-    ss << coord[i++];
+    ss << key;
     ss >> r >> c >> ori;
     hint << r << c << ' ';
-
-    aux = dc -> getHint(key);
+    aux = dc -> getHint(val);
     hint << aux;
 
     if(ori == 'V'){
@@ -62,16 +62,19 @@ Player::Player(const string &f_in, const string &name){
     }else{
       hintH.push_back(hint.str());
     }
+    i++;
   }
+  printHint();
+  cout << endl;
+}
 
-  cout << "VERTICAL:" << endl;
+void Player::printHint(){
+  cout << endl << "VERTICAL:" << endl;
   for(int i = 0; i < hintV.size(); i++){
     cout << "- " << hintV[i] << endl;
   }
-
   cout << endl << "HORIZONTAL" << endl;
   for(int i = 0; i < hintH.size(); i++){
     cout << "- " << hintH[i] << endl;
   }
-  cout << endl;
 }

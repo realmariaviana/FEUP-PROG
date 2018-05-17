@@ -15,6 +15,7 @@
 class Player{
   public:
     Player(const string &f_in, const string &name);
+    void printHint();
     ~Player();
 
   private:

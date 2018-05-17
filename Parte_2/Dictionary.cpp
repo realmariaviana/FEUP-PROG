@@ -91,15 +91,19 @@ vector<string> Dictionary::searchWords(const string &str){
 }
 
 const string Dictionary::getHint(const string &wrd){
+  string aux = wrd;
+  makeUpper(aux);
+
   pair< MMiterator, MMiterator > ret;
-  ret = words.equal_range(wrd);
+  ret = words.equal_range(aux);
 
   int max = distance(ret.first, ret.second);
   int pos = rand() % max;
+
   MMiterator it = ret.first;
 
   //for(it = ret.first, int i = 0; i< max; i++, it++);
-  for(int i = 0; i < max; i++) it++;
-
+  for(int i = 0; i < pos; i++) it++;
+  
   return it -> second;
 }
