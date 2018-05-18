@@ -20,27 +20,10 @@ class Puzzle{
     Puzzle(const string &f_in);
     Puzzle(Dictionary *dc, Board *bd);
     ~Puzzle();
-
-    /*	Handles all the user inputs
-     */
     void userIn(int &n);
-
-    /*	Finishes board
-     * Makes all the dot cells as
-     * # also known as black cells
-     */
     void cleanBoard();
-
-    /*	Saves puzzle to file
-     */
     const string saveToFile();
-
-    /*	Writes fo file
-     */
     void writeToFileB(ofstream &F);
-
-    /* Adds hints to puzzle
-     */
     void addHintMap(const string &key, const string &val);
   private:
     Dictionary *dc;
@@ -55,20 +38,9 @@ class Puzzle{
     map<string, string> instructions;
     map<string, string> hintMap;
 
-    /*	Handles hint according to position
-     */
     const bool userInPos(string &inPos);
-
-    /*	Handles user input word
-     */
     const int checkInWrd(string &a);
-
-    /*	Handles user input word
-     */
     const int userInWrd(string &inWrd);
-
-    /*	Handles user input position
-     */
     const string getHintP(const string &coord);
 };
 

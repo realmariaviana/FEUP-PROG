@@ -15,19 +15,8 @@
 class Player{
   public:
     Player(const string &f_in, const string &name);
-
-    /*	Prints hint vertically
-     * horizontally
-     */
     void printHint();
-
-    /*	Handles all the user inputs
-     */
     void userIn();
-
-    /*	Writes to file player name,
-     * time and number of clues given
-     */
     void writeToFile();
     ~Player();
 
