@@ -23,6 +23,7 @@ class Puzzle{
     void userIn(int &n);
     void cleanBoard();
     const string saveToFile();
+    void writeToFileB(ofstream &F);
     void addHintMap(const string &key, const string &val);
   private:
     Dictionary *dc;

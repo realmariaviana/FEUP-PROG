@@ -207,6 +207,7 @@ void Board::writeToFile(ofstream &F){
 }*/
 
 //PRIVATE METHODS
+
 /*const string Board::getWordH(const int &r, const int &c){
   int aux = c:
   string wrd;
@@ -281,15 +282,29 @@ const string Board::deleteWordV(const int &r, const int &c){
 
 void Board::insertWordH(const string &wrd, const int &r, const int &c){
   int aux = c;
+
+  if(c -1 >= 0){
+    if(board[r][c -1] == '.') board[r][c -1] = '#';
+  }
   for(size_t i = 0; i < wrd.size(); i++){
     board[r][aux++] = wrd.at(i);
+  }
+  if(aux < column){
+    if(board[r][aux] == '.') board[r][aux] = '#';
   }
 }
 
 void Board::insertWordV(const string &wrd, const int &r, const int &c){
   int aux = r;
+
+  if(r -1 >= 0){
+    if(board[r -1][c] == '.') board[r -1][c] = '#';
+  }
   for(size_t i = 0; i < wrd.size(); i++){
     board[aux++][c] = wrd.at(i);
+  }
+  if(aux < row){
+    if(board[aux][c] == '.') board[aux][c] = '#';
   }
 }
 

@@ -178,6 +178,10 @@ const string Puzzle::saveToFile(){
   return filePuzzle;
 }
 
+void Puzzle::writeToFileB(ofstream &F){
+  bd -> writeToFile(F);
+}
+
 void Puzzle::addHintMap(const string &key, const string &val){
   hintMap.insert(pair<string, string>(key, val));
 }

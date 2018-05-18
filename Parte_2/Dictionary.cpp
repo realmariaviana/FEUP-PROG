@@ -98,12 +98,14 @@ const string Dictionary::getHint(const string &wrd){
   ret = words.equal_range(aux);
 
   int max = distance(ret.first, ret.second);
+  if(max == 0) return "No more hints";
   int pos = rand() % max;
 
   MMiterator it = ret.first;
 
   //for(it = ret.first, int i = 0; i< max; i++, it++);
   for(int i = 0; i < pos; i++) it++;
-  
-  return it -> second;
+  aux = it -> second;
+  words.erase(it);
+  return aux;
 }

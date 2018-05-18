@@ -16,6 +16,8 @@ class Player{
   public:
     Player(const string &f_in, const string &name);
     void printHint();
+    void userIn();
+    void writeToFile();
     ~Player();
 
   private:
@@ -24,6 +26,10 @@ class Player{
     Puzzle *pz;
 
     string name;
+    time_t init, end;
+    int numHelp;
+    string fileName;
+
     map<string, string> sol;
     vector<string> hintH;
     vector<string> hintV;

@@ -4,6 +4,8 @@ using namespace std;
 
 Player::Player(const string &f_in, const string &name){
   this -> name = name;
+  this -> numHelp = 0;
+  this -> fileName = f_in;
 
   ifstream F;
   string line;
@@ -33,7 +35,6 @@ Player::Player(const string &f_in, const string &name){
     string key, val;
     F >> val >> key;
     if(val.empty() && key.empty()) break;
-    cout << val << '.' << ' ' << key << '.' << endl;
     sol.insert(pair<string, string>(key, val));
   }
 
@@ -64,8 +65,8 @@ Player::Player(const string &f_in, const string &name){
     }
     i++;
   }
+
   printHint();
-  cout << endl;
 }
 
 void Player::printHint(){
@@ -77,4 +78,51 @@ void Player::printHint(){
   for(int i = 0; i < hintH.size(); i++){
     cout << "- " << hintH[i] << endl;
   }
+}
+
+void Player::userIn(){
+  int ret;
+
+  this -> init = time(NULL);
+
+  pz -> userIn(ret);
+
+  this -> end = time(NULL);
+
+  this -> numHelp = ret;
+
+}
+
+void newFileNameP(string &fileName){
+  stringstream ss, name;
+  char a;
+  int n;
+
+  ss << fileName;
+  ss >> a >> n >> a >> a >> a >> a;
+
+  if(n < 10){
+    name << "b00" << n << "_b.txt";
+    fileName = name.str();
+  }else if(n >= 10 && n < 100){
+    name << "b0" << n << "_b.txt";
+    fileName = name.str();
+  }else{
+    name << "b" << n << "_b.txt";
+    fileName = name.str();
+  }
+}
+
+void Player::writeToFile(){
+  newFileNameP(fileName);
+
+  ofstream F;
+
+  openFile(fileName, F);
+
+  F << "Player Name: " << name << endl;
+  F << "Time: " << end - init << " (s)" << endl;
+  F << "Number of clues: " << numHelp << endl << endl;
+
+  pz -> writeToFileB(F);
 }
