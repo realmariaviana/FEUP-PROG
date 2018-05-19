@@ -199,6 +199,24 @@ void Puzzle::addHintMap(const string &key, const string &val){
   hintMap.insert(pair<string, string>(key, val));
 }
 
+vector<string> Puzzle::getInstructions(){
+  vector<string> ret;
+
+  for(auto it : instructions){
+    string key, val;
+    stringstream ss;
+
+    key = it.first;
+    val = it.second;
+
+    ss << key << ' ' << val;
+
+    ret.push_back(ss.str());
+  }
+
+  return ret;
+}
+
 //PRIVATE METHODS
 const string Puzzle::getHintP(const string &coord){
   return hintMap.find(coord) -> second;

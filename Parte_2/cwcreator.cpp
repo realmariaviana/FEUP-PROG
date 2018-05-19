@@ -154,6 +154,5 @@ void printInit(){
   cout << "- Position ( LCD / CTRL-D = stop)" << endl;
   cout << "- LCD stands for Line Column and Direction" << endl;
   cout << "- Line must be in uppercase, column lowecase and Direction in uppercase" << endl;
-  cout << "? does not work yet" << endl;
   cout << endl;
 }

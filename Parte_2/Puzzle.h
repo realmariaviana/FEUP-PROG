@@ -7,6 +7,7 @@
 #include <sstream>
 #include <limits>
 #include <map>
+#include <vector>
 
 #include "MyUtils.h"
 #include "Dictionary.h"
@@ -42,6 +43,8 @@ class Puzzle{
     /* Adds hints to puzzle
      */
     void addHintMap(const string &key, const string &val);
+    vector<string> getInstructions();
+
   private:
     Dictionary *dc;
     Board *bd;

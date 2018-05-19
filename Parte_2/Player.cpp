@@ -113,7 +113,7 @@ void newFileNameP(string &fileName){
   }
 }
 
-void Player::writeToFile(){
+const string Player::writeToFile(){
   newFileNameP(fileName);
 
   ofstream F;
@@ -125,4 +125,34 @@ void Player::writeToFile(){
   F << "Number of clues: " << numHelp << endl << endl;
 
   pz -> writeToFileB(F);
+
+  return fileName;
+}
+
+const bool Player::isWinner(){
+  vector<string> solV = solToVec();
+  vector<string> insV = pz -> getInstructions();
+
+  sortVector(solV);
+  sortVector(insV);
+
+  return solV == insV;
+}
+
+vector<string> Player::solToVec(){
+  vector<string> ret;
+
+  for(auto it : sol){
+    string key, val;
+    stringstream ss;
+
+    key = it.first;
+    val = it.second;
+
+    ss << key << ' ' << val;
+
+    ret.push_back(ss.str());
+  }
+
+  return ret;
 }
