@@ -11,6 +11,8 @@
 
 #include "MyUtils.h"
 
+#define NUM_OPT 3
+
 using namespace std;
 
 typedef multimap<string, string>::iterator MMiterator;

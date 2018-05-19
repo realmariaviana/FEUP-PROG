@@ -192,7 +192,7 @@ void Board::writeToFile(ofstream &F){
   F << endl;
 }
 
-/*const string Board::getWord(const char &init, const char &end, const char &ori){
+const string Board::getWord(const char &init, const char &end, const char &ori){
   int r = LTR_TO_INT(init);
   int c = ltr_TO_INT(end);
   string ret;
@@ -204,33 +204,28 @@ void Board::writeToFile(ofstream &F){
   }
 
   return ret;
-}*/
+}
 
 //PRIVATE METHODS
-
-/*const string Board::getWordH(const int &r, const int &c){
-  int aux = c:
+const string Board::getWordH(const int &r, const int &c){
   string wrd;
 
-  while(aux != column){
-    if(board[r][aux] == '.' || board[r][aux] == '#') return wrd;
-    wrd.push_back(board[r][aux]);
+  for(int i = c; i < column; i++){
+    wrd.push_back(board[r][i]);
   }
 
   return wrd;
-}*/
+}
 
-/*const string Board::getWordV(const int &r, const int &c){
-  int aux = r;
+const string Board::getWordV(const int &r, const int &c){
   string wrd;
 
-  while(aux != row){
-    if(board[aux][c] == '.' || board[aux][c] == '#') return wrd;
-    wrd.push_back(board[aux][c]);
+  for(int i = r; i < row; i++){
+    wrd.push_back(board[i][c]);
   }
 
   return wrd;
-}*/
+}
 
 const bool Board::checkSurrondingsH(const int &r, const int &c){
   if(r == 0){

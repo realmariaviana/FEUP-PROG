@@ -18,6 +18,7 @@ Dictionary::Dictionary(const string &fileName){
   while(!f_in.eof()){
     getline(f_in, line);
     trimString(line);
+    if(line.empty()) break;
     ky = checkLine(line, words);
     keys.push_back(ky);
   }
@@ -26,19 +27,14 @@ Dictionary::Dictionary(const string &fileName){
 
   for(int i = 0; i < 26; i++) ltrFreq[i] = 0;
 
-  char ltr = 'a';
-  int n = 0;
+  for(size_t i = 0; i < keys.size(); i++){
+    string wrd = keys[i];
+    int pos = POS_LETTER(wrd[0]);
+    ltrFreq[pos]++;
+  }
 
-  for(size_t i = 0; i < ky.size(); i++){
-    if(keys[i].at(0) != ltr){
-      for(int j = n+1; j < 26; j++){
-        ltrFreq[j] += ltrFreq[n];
-      }
-      ltr++;
-      n++;
-    }else{
-      ltrFreq[n]++;
-    }
+  for(int i = 1; i < 26; i++){
+    ltrFreq[i] += ltrFreq[i -1];
   }
 }
 
@@ -57,37 +53,44 @@ void calcInt(int &init, int &end, char ltr, int *ltrFreq){
 
   int pos = POS_LETTER((int)ltr);
 
-  init = ltrFreq[pos -1] +1;
-  end = init + ltrFreq[pos];
+  init = ltrFreq[pos -1];
+  end = init + (ltrFreq[pos] - ltrFreq[pos -1]) -1;
+  cout << init << ' ' << end << endl;
 }
 
 vector<string> Dictionary::searchWords(const string &str){
-  vector<string> ret;
-
+  vector<string> ret, wrd;
+  cout << "Dic search words: " << str << endl;
   int init = 0, end = keys.size();
   int pos = 0;
   char ltr;
 
-  if (str.at(0) != '?') {
+  if (str.at(0) != '*') {
     calcInt(init, end, str.at(0), ltrFreq);
-    pos = str.find_first_of('?', 1);
-    pos ++;
-    ltr = str.at(pos);
-  } else {
-    pos = str.find_first_of('?');
-    pos ++;
+    pos = 0;
+    ltr = str.at(0);
+  }else{
+    pos = str.find_first_not_of('*');
     ltr = str.at(pos);
   }
 
+  if(pos == string::npos) return ret;
+
   for(int i = init; i < end; i++){
     string aux = keys.at(i);
-
     if(aux.at(pos) == ltr){
       if (wildcardMatch(aux.c_str(), str.c_str()) ) ret.push_back(aux);
     }
   }
 
-  return ret;
+  if(ret.size() == 0) return ret;
+
+  while(wrd.size() != NUM_OPT){
+    int pos = rand() % ret.size();
+    if(ret[pos].size() <= str.size()) wrd.push_back(ret[pos]);
+  }
+
+  return wrd;
 }
 
 const string Dictionary::getHint(const string &wrd){

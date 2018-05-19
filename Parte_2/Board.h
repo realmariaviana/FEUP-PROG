@@ -54,7 +54,7 @@ class Board {
     /*	Writes board to file  */
     void writeToFile(ofstream &F);
 
-    //const string getWord(const char &init, const char &end, const char &ori);
+    const string getWord(const char &init, const char &end, const char &ori);
   private:
     vector< vector<char> > board;
     int row, column;
@@ -100,8 +100,8 @@ class Board {
      * vertically
      */
     const bool checkSurrondingsV(const int &r, const int &c);
-    //const string getWordV(const int &r, const int &c);
-    //const string getWordH(const int &r, const int &c);
+    const string getWordV(const int &r, const int &c);
+    const string getWordH(const int &r, const int &c);
 };
 
 #endif

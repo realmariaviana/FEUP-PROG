@@ -100,12 +100,25 @@ void Puzzle::userIn(int &n){
             string ret;
             ret = getHintP(inPos);
             cout << inPos << " hint: " << dc -> getHint(ret) << endl;
+          }else{
+            string ret;
+            ret = bd -> getWord(init, end, ori);
+
+            for(size_t i = 0; i < ret.size(); i++){
+              if(ret[i] == '.' || ret[i] == '#') ret[i] = '*';
+            }
+
+            vector<string> opt;
+
+            opt = dc -> searchWords(ret);
+
+            if(opt.size() == 0){
+              cout << "No word can fill that space, or there is no letters in the line/column" << endl;
+            }else{
+              cout << "The following words can be used to fll the space: " << endl;
+              for(size_t i = 0; i < opt.size(); i++) cout << "- " << opt[i] << endl;
+            }
           }
-          //? dar pistas para aquela posicao
-          //utilizar dc -> searchWords(wildStr)
-          //wildStr string com ? nos locais onde nao temos letras
-          //ha funcoes no board que retornam a linha/coluna para as coordenadas indicadas
-          //mas e preciso altera las unico criterio de paragem e #
         }
     }
 
