@@ -15,6 +15,7 @@ Board::Board(int row, int columnn){
 
 }
 
+//Constructor for cwcreator
 Board::Board(const string &line){
   this -> column = line.size();
   this -> row = 0;
@@ -32,6 +33,7 @@ Board::Board(const string &line){
   board.push_back(nC);
 }
 
+//Constructor for cwplayer
 Board::Board(const string &line, const bool &flag){
   this -> column = line.size();
   this -> row = 0;
@@ -154,6 +156,7 @@ void Board::finishBoard(){
 
 }
 
+//Method used in cwcreator
 void Board::addLine(const string &line){
   vector <char> nC;
 
@@ -166,6 +169,7 @@ void Board::addLine(const string &line){
   board.push_back(nC);
 }
 
+//Method used in cwplayer
 void Board::addLine(const string &line, const bool &flag){
   vector<char> nC;
 

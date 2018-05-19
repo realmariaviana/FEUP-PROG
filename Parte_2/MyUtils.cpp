@@ -34,34 +34,6 @@ void makeUpper(string &a){
 	}
 }
 
-string checkLine(string &line, multimap<string, string> &v){
-	string aux, key;
-
-	size_t pos = line.find_first_of(':');
-
-	key = line.substr(0, pos);
-	trimString(key);
-	makeUpper(key);
-	line.erase(0, pos+1);
-
-	while(!line.empty()){
-		pos = line.find(',');
-		if(pos == string::npos) break;
-
-		aux = line.substr(0, pos);
-		trimString(aux);
-		makeUpper(aux);
-		v.insert(pair<string, string>(key, aux));
-		line.erase(0, pos+1);
-	}
-	line=line.substr(0, pos);
-	trimString(line);
-	makeUpper(line);
-	v.insert(pair<string, string>(key, line));
-
-	return key;
-}
-
 void sortVector(vector<string> &v){
 	sort(v.begin(), v.end());
 }

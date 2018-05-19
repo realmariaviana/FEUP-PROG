@@ -93,6 +93,7 @@ void Player::userIn(){
 
 }
 
+//Takes care of file name incrementing its number and adding _p
 void newFileNameP(string &fileName){
   stringstream ss, name;
   char a;
@@ -139,6 +140,7 @@ const bool Player::isWinner(){
   return solV == insV;
 }
 
+//PRIVATE METHODS
 vector<string> Player::solToVec(){
   vector<string> ret;
 

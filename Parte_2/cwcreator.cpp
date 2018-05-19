@@ -39,6 +39,9 @@ int main(){
   return 0;
 }
 
+/* If the input from the user was an invalid option
+ * it lets the user have another try
+ */
 const bool invalidIsCompleteOption(){
   if(cin.fail()){
     cout << endl << "Invalid option detected. Trt agian" << endl;
@@ -54,6 +57,8 @@ const bool invalidIsCompleteOption(){
   }
 }
 
+/* After receiving CTRL-D it asks the user if the board is complete
+ */
 const bool isComplete(){
   cout << "Is the puzzle complete? [Y / N] ? ";
   char options;
@@ -72,6 +77,8 @@ const bool isComplete(){
   }
 }
 
+/* Resume an existing puzzle
+ */
 Puzzle* resumePuzzle() {
   cout << endl << endl;
   cout << "Crossword puzzle file ? " << endl;
@@ -85,6 +92,8 @@ Puzzle* resumePuzzle() {
   return pz;
 }
 
+/* Handles the creation of a new puzzle
+ */
 Puzzle* createPuzzle(){
   string fileName;
   int row, column;
@@ -102,6 +111,9 @@ Puzzle* createPuzzle(){
   return pz;
 }
 
+/* If the input from the user was an invalid option in the menu
+ * Lets the user have another try at choosing his option
+ */
 Puzzle* invalidMenuOption(){
   if(cin.fail()){
     cout << endl << "Invalid option detected. Trt agian" << endl;
@@ -117,6 +129,8 @@ Puzzle* invalidMenuOption(){
   }
 }
 
+/* Prints the menu giving the user options to start a new puzzle or resume one
+ */
 Puzzle* printMenu(){
   cout << "Options: " << endl;
   cout << "1. Create Puzzle" << endl;
@@ -146,6 +160,8 @@ Puzzle* printMenu(){
   return 0;
 }
 
+/* Prints header of program
+ */
 void printInit(){
   cout << endl << endl;
   cout << "CROSSWORDS PUZZLE CREATOR" << endl;

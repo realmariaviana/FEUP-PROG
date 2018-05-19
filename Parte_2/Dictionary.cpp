@@ -12,14 +12,14 @@ Dictionary::Dictionary(const string &fileName){
 
   getline(f_in, line);
   trimString(line);
-  ky = checkLine(line, words);
+  ky = checkLine(line);
   keys.push_back(ky);
 
   while(!f_in.eof()){
     getline(f_in, line);
     trimString(line);
     if(line.empty()) break;
-    ky = checkLine(line, words);
+    ky = checkLine(line);
     keys.push_back(ky);
   }
 
@@ -43,6 +43,7 @@ bool Dictionary::isValid(string &str) const{
   return searchVector(keys, str);
 }
 
+//Adapted from playwords, 1st project
 void calcInt(int &init, int &end, char ltr, int *ltrFreq){
   init = end = 0;
 
@@ -111,4 +112,35 @@ const string Dictionary::getHint(const string &wrd){
   aux = it -> second;
   words.erase(it);
   return aux;
+}
+
+//PRIVATE METHODS
+const string Dictionary::checkLine(const string &str){
+  string line = str;
+  string aux, key;
+
+	size_t pos = line.find_first_of(':');
+
+	key = line.substr(0, pos);
+	trimString(key);
+	makeUpper(key);
+	line.erase(0, pos+1);
+
+	while(!line.empty()){
+		pos = line.find(',');
+		if(pos == string::npos) break;
+
+		aux = line.substr(0, pos);
+		trimString(aux);
+		makeUpper(aux);
+		words.insert(pair<string, string>(key, aux));
+		line.erase(0, pos+1);
+	}
+
+	line=line.substr(0, pos);
+	trimString(line);
+  makeUpper(line);
+	words.insert(pair<string, string>(key, line));
+
+	return key;
 }

@@ -18,12 +18,11 @@ class Player{
     Player(const string &f_in, const string &name);
     ~Player();
 
-    /*	Prints hint vertically
-     * horizontally
+    /*	Prints horizontal and vertical hints
      */
     void printHint();
 
-    /*	Handles all the user inputs
+    /*	Handles all the user inputs and takes care of timer
      */
     void userIn();
 
@@ -31,6 +30,10 @@ class Player{
      * time and number of clues given
      */
     const string writeToFile();
+
+    /* Checks if user the user board is correct equal to sol
+     * It compares the stored solution and the user input on instructions
+     */
     const bool isWinner();
   private:
     Dictionary *dc;
@@ -46,6 +49,8 @@ class Player{
     vector<string> hintH;
     vector<string> hintV;
 
+    /* Converts sol to a vector making it easier to compare
+     */
     vector<string> solToVec();
 };
 

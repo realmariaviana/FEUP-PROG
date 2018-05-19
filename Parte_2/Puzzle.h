@@ -23,12 +23,11 @@ class Puzzle{
     ~Puzzle();
 
     /*	Handles all the user inputs
+     *  Counter for the number of hints the user asks
      */
     void userIn(int &n);
 
-    /*	Finishes board
-     * Makes all the dot cells as
-     * # also known as black cells
+    /*	Finishes board makes all the dot cells as # also known as black cells
      */
     void cleanBoard();
 
@@ -40,9 +39,12 @@ class Puzzle{
      */
     void writeToFileB(ofstream &F);
 
-    /* Adds hints to puzzle
+    /* Populates hintMap to be used on cwplayer
      */
     void addHintMap(const string &key, const string &val);
+
+    /* Converts instructions to a vector making it easier to compare
+     */
     vector<string> getInstructions();
 
   private:
@@ -58,11 +60,12 @@ class Puzzle{
     map<string, string> instructions;
     map<string, string> hintMap;
 
-    /*	Handles hint according to position
+    /* Handles user input to coordinates, making sure the input is valid
+     * returns true when it detects a CTRL-D
      */
     const bool userInPos(string &inPos);
 
-    /*	Handles user input word
+    /*	Handles user input word making sure it is present on the dictionary
      */
     const int checkInWrd(string &a);
 
@@ -70,7 +73,7 @@ class Puzzle{
      */
     const int userInWrd(string &inWrd);
 
-    /*	Handles user input position
+    /* Given a coordinate it returns the val in hintMap
      */
     const string getHintP(const string &coord);
 };

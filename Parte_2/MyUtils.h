@@ -12,7 +12,7 @@
 
 using namespace std;
 
-/*	Opens file
+/*  Opens file
  * 	filename name of file to be open
  * 	input ifstream passed by reference
  */
@@ -34,8 +34,6 @@ void trimString(string &str);
  */
 //New function, taken from userIn. Now its separate for other uses
 void makeUpper(string &a);
-
-string checkLine(string &line, multimap<string, string> &v);
 
 /* Sorts vector
  */

@@ -42,6 +42,8 @@ int main(){
   return 0;
 }
 
+/* Prints the header of the program
+ */
 void printInit(){
   cout << endl << endl;
   cout << "CROSSWORDS PUZZLE PLAYER" << endl;
